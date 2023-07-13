@@ -7,74 +7,83 @@ function getComputerChoice(){
     case 2: {return "scissor"}
 }}
 
+let victories = 0;
+let loses = 0;
+let draws = 0;
+
 // Compare CPU and your result, and decide a winner function
 function compareResults(myChoice,hisChoice){
+    while(victories < 5 && loses < 5){
     switch(myChoice){
         case "rock": if (hisChoice == myChoice){
                         return "Draw"}
                     else if (hisChoice == "paper"){
-                        return "You lose! Paper beats Rock."}
+                        ++loses;
+                        return "You lose! Paper beats Rock.";}
                     else{
+                        ++victories;
                         return "You win!"} 
         break;
         case "paper":  if (hisChoice == myChoice){
                         return "Draw"}
                     else if (hisChoice == "scissor"){
-                        return "You lose! Scissor beats Paper."}
+                        ++loses;
+                        rounds.textContent = `Round: ${victories + loses}`
+                        return "You lose! Scissor beats Paper.";}
                     else{
+                        ++victories;
+                        rounds.textContent = `Round: ${victories + loses}`
                         return "You win!"}
         break;
         case "scissor":  if (hisChoice == myChoice){
                         return "Draw"}
                     else if (hisChoice == "paper"){
-                        return "You lose! Rock beats Scissor."}
+                        ++loses;
+                        rounds.textContent = `Round: ${victories + loses}`
+                        return "You lose! Rock beats Scissor.";}
                     else{
+                        ++victories;
+                        rounds.textContent = `Round: ${victories + loses}`
                         return "You win!"}
         break;
         default:{return "Something went horribly wrong!"}
-}}
+    }}
+}
 
 //input function. if the user returns null, send a default answer (stuck in this hell)
-function DecideMyFate(){let deciderOfFate = 10;
-deciderOfFate = prompt("Please write in your final answer!","rock");
-if(deciderOfFate == null){return "rock";}
-return deciderOfFate.toLowerCase();}
-
-//shorted function since the original one is too big
-function shortFunc(){
-    return (compareResults(DecideMyFate(), getComputerChoice()));
-}
-//final result to announce the winner
+gameText = document.querySelector('.game');
+let para = document.querySelector('#pepe');
+let rounds = document.createElement('h3');
+gameText.appendChild(rounds);
+rounds.textContent = '';
+const rock = document.querySelector('#btnRock');
+const paper = document.querySelector('#btnPaper');
+const scissor = document.querySelector('#btnScissor');
+rock.addEventListener('click', () => { if ((victories !== 5 && loses == 5)|| (loses !== 5 && victories==5)){return}
+para.textContent = compareResults('rock', getComputerChoice());
+Counting();
+console.log(victories);console.log(loses);
+if (victories == 5 || loses == 5){
+    announcement(victories,loses);
+}});
+paper.addEventListener('click', () => { if ((victories !== 5 && loses == 5)|| (loses !== 5 && victories==5)){return}
+para.textContent=compareResults('paper', getComputerChoice());
+Counting();
+console.log(victories);console.log(loses);
+if (victories == 5 || loses == 5){
+    announcement(victories,loses);
+}});
+scissor.addEventListener('click', () => { if ((victories !== 5 && loses == 5)|| (loses !== 5 && victories==5)){return}
+para.textContent=compareResults('scissor', getComputerChoice());console.log(victories);console.log(loses);
+Counting();
+if (victories == 5 || loses == 5){
+    announcement(victories,loses);
+}});
 function announcement(W,L){
-    if (W > L){return "YOU WIN!";}
-    else{return "You lose.";}
+    let gameOver = document.querySelector('#gameOver');
+    if (W > L){gameOver.textContent = "YOU ARE VICTORIOUS!!!";}
+    else{gameOver.textContent = "you SUCK!";}
 }
-//game
-function game(){
-    let victories = 0;
-    let loses = 0;
-    let draws = 0;
-    let round;
-    //this for-loop calculates the number of rounds
-    for(round = 1; round <= 5; round++){
-    let Fight = shortFunc();
-    if ( Fight == "You win!"){
-        console.log(`Round ${round} ends in a Victory!`);
-        victories++;
-    }
-    else if (Fight.slice(4,5) == "l"){
-        console.log(`Round ${round} ends in a lose!`);
-        loses++;
-    }
-    else{
-        //console.log("Draw!");
-        round--;
-    }
-}
-
-    console.log( announcement(victories,loses));
-    console.log(`Game Over!\n`);
-    console.log("total victories = " + victories);
-    console.log("total loses = " + loses);
-}
-game();
+function Counting(){
+                    rounds.textContent = `Round: ${victories + loses}\n victories: ${victories}\n loses: ${loses}`;
+                }

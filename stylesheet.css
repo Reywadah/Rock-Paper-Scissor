@@ -1,0 +1,36 @@
+body{
+    text-align: center;
+    margin: 0px;
+    background-image: url('master-duel-bg.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment:fixed;
+}
+#pepe{
+    font-size: 35px;
+    border: solid pink 1px;
+    border-radius: 10px;
+}
+.game{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px;
+    border: solid white 2px;
+    width: 30%;
+    background-color: rgba(22, 0, 51, 0.336);
+    color: white;
+    font-weight: 600;
+    font-size: 30px;
+    padding: 40px;
+}
+.cards{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+button{
+    padding: 0;
+    border: solid black 1px;
+}
